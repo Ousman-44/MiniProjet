@@ -1,5 +1,6 @@
 package pharmacie.entity;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import lombok.*;
+
+import java.util.Set;
+
 
 @Entity
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
@@ -34,5 +38,8 @@ public class Categorie {
 	// pour éviter la boucle infinie si on convertit la catégorie en JSON
 	@JsonIgnoreProperties({"categorie", "lignes"})
 	private List<Medicament> medicaments = new LinkedList<>();
+
+	@ManyToMany(mappedBy = "categories")
+ 	private Set<Fournisseur> fournisseurs = new HashSet<>();
 
 }

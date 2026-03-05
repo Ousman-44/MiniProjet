@@ -1,4 +1,4 @@
-package comptoirs.entity;
+package pharmacie.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
