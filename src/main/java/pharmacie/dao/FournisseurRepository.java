@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FournisseurRepository extends JpaRepository<Fournisseur, Integer> {
+public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> {
 
     /**
      * Retourne tous les fournisseurs capables de fournir une catégorie donnée

@@ -2,10 +2,8 @@ package pharmacie.service;
 
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pharmacie.service.MailService;
 
 import pharmacie.dao.FournisseurRepository;
 import pharmacie.dao.MedicamentRepository;
@@ -27,13 +25,9 @@ public class ApprovisionnementService {
     private final FournisseurRepository fournisseurRepository;
     private final MailService mailService;
 
-    // Adresse d'envoi (ex: ton gmail)
-    @Value("${app.mail.from:}")
-    private String from;
-
     public ApprovisionnementService(MedicamentRepository medicamentRepository,
-                                   FournisseurRepository fournisseurRepository,
-                                   MailService mailService) {
+            FournisseurRepository fournisseurRepository,
+            MailService mailService) {
         this.medicamentRepository = medicamentRepository;
         this.fournisseurRepository = fournisseurRepository;
         this.mailService = mailService;
@@ -71,15 +65,16 @@ public class ApprovisionnementService {
 
             for (Fournisseur f : capables) {
                 plan.computeIfAbsent(f, k -> new LinkedHashMap<>())
-                    .computeIfAbsent(m.getCategorie(), k -> new ArrayList<>())
-                    .add(m);
+                        .computeIfAbsent(m.getCategorie(), k -> new ArrayList<>())
+                        .add(m);
             }
         }
 
         // 3) Envoyer les mails
         int nbMails = 0;
         for (var entry : plan.entrySet()) {
-            if (entry.getValue().isEmpty()) continue;
+            if (entry.getValue().isEmpty())
+                continue;
             envoyerMail(entry.getKey(), entry.getValue());
             nbMails++;
         }
@@ -111,17 +106,12 @@ public class ApprovisionnementService {
      */
     private void envoyerMail(Fournisseur fournisseur, Map<Categorie, List<Medicament>> parCategorie) {
 
-        // Petit fallback si app.mail.from n'est pas défini en dev
-        String fromAddress = (from == null || from.isBlank())
-                ? "noreply@pharmacie.local"
-                : from;
-
         String subject = "Demande de devis - Réapprovisionnement";
 
         // Construire le mail
         StringBuilder body = new StringBuilder();
         body.append("Bonjour ").append(fournisseur.getNom()).append(",\n\n")
-            .append("Merci de nous transmettre un devis pour le réapprovisionnement des médicaments ci-dessous.\n\n");
+                .append("Merci de nous transmettre un devis pour le réapprovisionnement des médicaments ci-dessous.\n\n");
 
         // Regroupement par catégorie
         for (var entry : parCategorie.entrySet()) {
@@ -131,30 +121,29 @@ public class ApprovisionnementService {
             for (Medicament m : entry.getValue()) {
                 int manque = Math.max(0, m.getNiveauDeReappro() - m.getUnitesEnStock());
                 body.append("- ").append(m.getNom())
-                    .append(" | stock=").append(m.getUnitesEnStock())
-                    .append(" | seuil=").append(m.getNiveauDeReappro())
-                    .append(" | suggestion commande=").append(manque)
-                    .append("\n");
+                        .append(" | stock=").append(m.getUnitesEnStock())
+                        .append(" | seuil=").append(m.getNiveauDeReappro())
+                        .append(" | suggestion commande=").append(manque)
+                        .append("\n");
             }
             body.append("\n");
         }
 
         body.append("Cordialement,\nLa Pharmacie\n");
 
-        // Objet mail Spring Mail
-    mailService.envoyerMail(
-        fournisseur.getEmail(),
-        subject,
-        body.toString()
-    );
+        // Objet mail SendGrid
+        mailService.envoyerMail(
+                fournisseur.getEmail(),
+                subject,
+                body.toString());
     }
 
     /**
      * Petit DTO (record) pour renvoyer un résultat JSON propre en REST.
      */
     public record RapportApprovisionnement(
-        int nbMedicamentsAReappro,
-        int nbFournisseursContactes,
-        Map<String, Map<String, List<String>>> details
-    ) {}
+            int nbMedicamentsAReappro,
+            int nbFournisseursContactes,
+            Map<String, Map<String, List<String>>> details) {
+    }
 }

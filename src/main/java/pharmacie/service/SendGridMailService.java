@@ -46,8 +46,7 @@ public class SendGridMailService implements MailService {
 
             if (response.getStatusCode() >= 400) {
                 throw new RuntimeException(
-                    "Erreur SendGrid : " + response.getStatusCode() + " - " + response.getBody()
-                );
+                        "Erreur SendGrid : " + response.getStatusCode() + " - " + response.getBody());
             }
 
         } catch (IOException e) {

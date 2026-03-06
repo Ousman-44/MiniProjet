@@ -13,9 +13,12 @@ import lombok.*;
 
 import java.util.Set;
 
-
 @Entity
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 public class Categorie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class Categorie {
 
 	@NonNull
 	@Size(min = 1, max = 255)
-	@Column(unique=true, length = 255)
+	@Column(unique = true, length = 255)
 	@NotBlank // pour éviter les libellés vides
 	private String libelle;
 
@@ -33,13 +36,14 @@ public class Categorie {
 	private String description;
 
 	@ToString.Exclude
-	// CascadeType.ALL signifie que toutes les opérations CRUD sur la catégorie sont également appliquées à ses médicaments
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "categorie")
+	// CascadeType.ALL signifie que toutes les opérations CRUD sur la catégorie sont
+	// également appliquées à ses médicaments
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "categorie")
 	// pour éviter la boucle infinie si on convertit la catégorie en JSON
-	@JsonIgnoreProperties({"categorie", "lignes"})
+	@JsonIgnoreProperties({ "categorie", "lignes" })
 	private List<Medicament> medicaments = new LinkedList<>();
 
 	@ManyToMany(mappedBy = "categories")
- 	private Set<Fournisseur> fournisseurs = new HashSet<>();
+	private Set<Fournisseur> fournisseurs = new HashSet<>();
 
 }
