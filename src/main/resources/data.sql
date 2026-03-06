@@ -188,8 +188,13 @@ INSERT INTO LIGNE (COMMANDE_NUMERO, MEDICAMENT_REFERENCE, QUANTITE) VALUES
 -- ============================================================
 
 INSERT INTO FOURNISSEUR (ID, NOM, EMAIL) VALUES
-(1, 'PharmaSupply', 'ousf1@gmail.com'),
-(2, 'MediGross', 'ousf2@gmail.com');
+(1, 'PharmaSupply', 'proog4420@gmail.com+f1@gmail.com'),
+(2, 'MediGross', 'proog4420@gmail.com+f2@gmail.com'),
+(3, 'GlobalPharma', 'proog4420@gmail.com+f3@gmail.com'),
+(4, 'HealthDistrib', 'proog4420@gmail.com+f4@gmail.com'),
+(5, 'MediFrance', 'proog4420@gmail.com+f5@gmail.com'),
+(6, 'EuroMed', 'proog4420@gmail.com+f6@gmail.com'),
+(7, 'BioPharma', 'proog4420@gmail.com+f7@gmail.com');
 
 -- Lien fournisseurs <-> catégories (CODE = clé de CATEGORIE)
 INSERT INTO FOURNISSEUR_CATEGORIE (FOURNISSEUR_ID, CATEGORIE_CODE) VALUES
