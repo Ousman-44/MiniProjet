@@ -181,3 +181,25 @@ INSERT INTO LIGNE (COMMANDE_NUMERO, MEDICAMENT_REFERENCE, QUANTITE) VALUES
 (6, 6, 110), (6, 16, 65), (6, 26, 85), (6, 36, 60), (6, 91, 70),
 (7, 7, 80), (7, 17, 50), (7, 27, 95), (7, 37, 55), (7, 100, 45),
 (8, 8, 100), (8, 18, 75), (8, 28, 80), (8, 38, 70), (8, 48, 60);
+    
+
+-- ============================================================
+-- FOURNISSEURS (au moins 2 fournisseurs par catégorie)
+-- ============================================================
+
+INSERT INTO FOURNISSEUR (ID, NOM, EMAIL) VALUES
+(1, 'PharmaSupply', 'ousf1@gmail.com'),
+(2, 'MediGross', 'ousf2@gmail.com');
+
+-- Lien fournisseurs <-> catégories (CODE = clé de CATEGORIE)
+INSERT INTO FOURNISSEUR_CATEGORIE (FOURNISSEUR_ID, CATEGORIE_CODE) VALUES
+(1,1),(2,1),
+(1,2),(2,2),
+(1,3),(2,3),
+(1,4),(2,4),
+(1,5),(2,5),
+(1,6),(2,6),
+(1,7),(2,7),
+(1,8),(2,8),
+(1,9),(2,9),
+(1,10),(2,10);

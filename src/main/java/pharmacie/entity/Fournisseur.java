@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(
-    name = "fournisseurs",
+    name = "fournisseur",
     uniqueConstraints = {
         @UniqueConstraint(name = "uk_fournisseur_email", columnNames = {"email"})
     }
@@ -44,7 +44,7 @@ public class Fournisseur {
   @JoinTable(
       name = "fournisseur_categories",
       joinColumns = @JoinColumn(name = "fournisseur_id"),
-      inverseJoinColumns = @JoinColumn(name = "categorie_id")
+      inverseJoinColumns = @JoinColumn(name = "categorie_code")
   )
   @Builder.Default
   @JsonIgnore // évite boucles JSON si tu exposes directement les entités
