@@ -44,7 +44,7 @@ INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, 
 
 -- Catégorie 3: Antibiotiques
 INSERT INTO MEDICAMENT (NOM, CATEGORIE_CODE, QUANTITE_PAR_UNITE, PRIX_UNITAIRE, UNITES_EN_STOCK, UNITES_COMMANDEES, NIVEAU_DE_REAPPRO, INDISPONIBLE, imageURL) VALUES
-('Amoxicilline 500mg', 3, 'Boîte de 12 gélules', 5.90, 400, 0, 40, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
+('Amoxicilline 500mg', 3, 'Boîte de 12 gélules', 5.90, 10, 0, 40, false, 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400'),
 ('Amoxicilline + Acide Clavulanique 1g', 3, 'Boîte de 8 comprimés', 8.50, 350, 0, 35, false, 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400'),
 ('Azithromycine 250mg', 3, 'Boîte de 6 comprimés', 9.80, 280, 0, 30, false, 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400'),
 ('Ciprofloxacine 500mg', 3, 'Boîte de 10 comprimés', 12.30, 220, 0, 25, false, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400'),
